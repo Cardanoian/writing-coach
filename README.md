@@ -1,69 +1,85 @@
-# React + TypeScript + Vite
+# ✍️ 손글씨 분석 및 첨삭 AI 웹 앱
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+이 애플리케이션은 학생의 손글씨를 분석하고 첨삭하는 웹 앱입니다. Google Gemini AI를 활용하여 손글씨 이미지에서 텍스트를 추출하고, 언어 사용, 내용 구성, 표현력 등을 종합적으로 평가하여 상세한 피드백을 제공합니다.
 
-Currently, two official plugins are available:
+## ✨ 주요 기능
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **손글씨 이미지 업로드**: 분석하고 싶은 손글씨 이미지를 간편하게 업로드할 수 있습니다.
+- **글의 장르 선택 (선택 사항)**: 설명문, 논설문, 일기, 시 등 글의 장르를 지정하여 AI가 더 정확하고 맥락에 맞는 분석을 수행하도록 돕습니다.
+- **추가 프롬프트 입력 (선택 사항)**: AI에게 특별히 요청하고 싶은 내용(예: 맞춤법 오류 검사, 문단 구성 평가, 주장과 근거의 연관성 확인)을 추가 프롬프트로 전달할 수 있습니다.
+- **AI 기반 분석 및 첨삭**: 업로드된 손글씨를 Gemini AI가 분석하여 다음과 같은 상세한 첨삭 결과를 마크다운 형식으로 제공합니다.
+  - **글쓰기 점수**: 100점 만점 기준의 점수
+  - **잘한 점**: 구체적인 예시와 함께 칭찬할 내용
+  - **개선 제안**: 언어 사용(맞춤법, 띄어쓰기, 문법) 및 내용/표현(구조, 표현)에 대한 구체적인 개선 방안
+  - **다음 글쓰기 팁**: 학습자가 다음에 적용할 수 있는 실용적인 조언
+- **실시간 미리보기**: 업로드된 이미지 파일을 분석 전에 미리 확인할 수 있습니다.
 
-## Expanding the ESLint configuration
+## 🛠️ 기술 스택
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+이 프로젝트는 다음과 같은 기술 스택으로 구축되었습니다.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **프론트엔드**: React 19, TypeScript
+- **빌드 도구**: Vite 7
+- **스타일링**: Tailwind CSS, Radix UI (컴포넌트)
+- **AI 통합**: Google Gemini API (`@google/genai`)
+- **마크다운 렌더링**: `react-markdown`
+- **아이콘**: `lucide-react`
+- **환경 변수 관리**: `dotenv`
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🚀 설치 및 실행 방법
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+프로젝트를 로컬 환경에서 설치하고 실행하는 방법은 다음과 같습니다.
+
+### 1. 환경 변수 설정
+
+프로젝트 루트 디렉토리에 `.env` 파일을 생성하고, Google Gemini API 키를 다음과 같이 설정합니다.
+
+```dotenv
+VITE_GEMINI_API_KEY=YOUR_GEMINI_API_KEY
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+`YOUR_GEMINI_API_KEY`는 [Google AI Studio](https://aistudio.google.com/app/apikey)에서 발급받을 수 있습니다.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 2. 의존성 설치
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+프로젝트의 모든 의존성을 설치합니다.
+
+```bash
+npm install
+```
+
+### 3. 개발 서버 실행
+
+개발 모드로 애플리케이션을 실행합니다.
+
+```bash
+npm run dev
+```
+
+이 명령어를 실행하면 개발 서버가 시작되고, 웹 브라우저에서 애플리케이션에 접근할 수 있습니다.
+
+### 4. 프로젝트 빌드
+
+프로덕션 배포를 위한 빌드 파일을 생성합니다.
+
+```bash
+npm run build
+```
+
+## 📂 프로젝트 구조 (간략)
+
+```
+.
+├── public/                 # 정적 파일 (아이콘, manifest.json 등)
+├── src/                    # 소스 코드
+│   ├── components/ui/      # 재사용 가능한 UI 컴포넌트 (버튼, 카드, 입력 필드 등)
+│   ├── lib/gemini.ts       # Google Gemini API 연동 로직 및 프롬프트 정의
+│   ├── model/              # 데이터 모델 정의 (현재는 비어있음)
+│   ├── view/               # 사용자 인터페이스 (UI) 컴포넌트
+│   │   └── HandwritingTutorView.tsx
+│   └── viewmodel/          # 뷰와 모델 간의 로직 처리 (상태 관리, API 호출)
+│       └── HandwritingTutorViewModel.ts
+├── index.html              # 메인 HTML 파일
+├── package.json            # 프로젝트 의존성 및 스크립트
+└── vite.config.ts          # Vite 설정 파일
 ```
