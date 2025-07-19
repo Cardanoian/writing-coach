@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label'; // Label 컴포넌트 임포트
+import { ThemeToggle } from '@/components/ui/theme-toggle'; // ThemeToggle 컴포넌트 임포트
 import { useHandwritingTutorViewModel } from '@/viewmodel/HandwritingTutorViewModel';
 import { Loader2 } from 'lucide-react'; // Spinner 대신 Loader2 아이콘 임포트
 import ReactMarkdown from 'react-markdown';
@@ -20,7 +21,11 @@ export function HandwritingTutorView() {
 
   return (
     <div className='container mx-auto p-4 md:p-8'>
-      <Card className='max-w-2xl mx-auto'>
+      <Card className='max-w-2xl mx-auto relative'>
+        {/* 우측 상단에 테마 토글 버튼 */}
+        <div className='absolute top-4 right-4 z-50'>
+          <ThemeToggle />
+        </div>
         <CardHeader>
           <CardTitle className='text-2xl font-bold text-center'>
             ✍️ 손글씨 분석 및 첨삭 AI
